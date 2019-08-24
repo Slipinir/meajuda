@@ -1,0 +1,95 @@
+object Form3: TForm3
+  Left = 0
+  Top = 0
+  Caption = 'Form3'
+  ClientHeight = 480
+  ClientWidth = 364
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  DesignerMasterStyle = 0
+  object lblTitle: TLabel
+    Position.X = 40.000000000000000000
+    Position.Y = 16.000000000000000000
+    Text = 'T'#237'tulo'
+    TabOrder = 0
+  end
+  object edtTitle: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 1
+    Position.X = 40.000000000000000000
+    Position.Y = 40.000000000000000000
+    Size.Width = 281.000000000000000000
+    Size.Height = 32.000000000000000000
+    Size.PlatformDefault = False
+    TextPrompt = 'Digite aqui um t'#237'tulo'
+  end
+  object lblDescription: TLabel
+    Position.X = 40.000000000000000000
+    Position.Y = 80.000000000000000000
+    Text = 'Descri'#231#227'o'
+    TabOrder = 2
+  end
+  object memDescription: TMemo
+    Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+    DataDetectorTypes = []
+    Position.X = 40.000000000000000000
+    Position.Y = 104.000000000000000000
+    Size.Width = 281.000000000000000000
+    Size.Height = 65.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 3
+    Viewport.Width = 277.000000000000000000
+    Viewport.Height = 61.000000000000000000
+  end
+  object lblAttachments: TLabel
+    Position.X = 40.000000000000000000
+    Position.Y = 384.000000000000000000
+    Text = 'Anexos'
+    TabOrder = 4
+  end
+  object lsbAttachments: TListBox
+    Position.X = 40.000000000000000000
+    Position.Y = 408.000000000000000000
+    Size.Width = 249.000000000000000000
+    Size.Height = 24.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 5
+    DisableFocusEffect = True
+    DefaultItemStyles.ItemStyle = ''
+    DefaultItemStyles.GroupHeaderStyle = ''
+    DefaultItemStyles.GroupFooterStyle = ''
+    Viewport.Width = 245.000000000000000000
+    Viewport.Height = 20.000000000000000000
+  end
+  object btnOk: TButton
+    Position.X = 40.000000000000000000
+    Position.Y = 440.000000000000000000
+    TabOrder = 8
+    Text = 'Criar'
+  end
+  object btnClear: TButton
+    Position.X = 144.000000000000000000
+    Position.Y = 440.000000000000000000
+    TabOrder = 6
+    Text = 'Descartar'
+  end
+  object btnSearch: TButton
+    Position.X = 296.000000000000000000
+    Position.Y = 408.000000000000000000
+    Size.Width = 33.000000000000000000
+    Size.Height = 25.000000000000000000
+    Size.PlatformDefault = False
+    StyleLookup = 'searcheditbutton'
+    TabOrder = 7
+    Text = '...'
+  end
+  object MapView1: TMapView
+    Position.X = 40.000000000000000000
+    Position.Y = 176.000000000000000000
+    Size.Width = 281.000000000000000000
+    Size.Height = 209.000000000000000000
+    Size.PlatformDefault = False
+  end
+end

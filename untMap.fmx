@@ -1,0 +1,39 @@
+object Form4: TForm4
+  Left = 0
+  Top = 0
+  Caption = 'Form4'
+  ClientHeight = 480
+  ClientWidth = 640
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  DesignerMasterStyle = 0
+  object MapView1: TMapView
+    Align = Client
+    Size.Width = 640.000000000000000000
+    Size.Height = 447.000000000000000000
+    Size.PlatformDefault = False
+    Zoom = 20.000000000000000000
+    OnMarkerClick = MapView1MarkerClick
+  end
+  object Button1: TButton
+    Align = Top
+    Size.Width = 640.000000000000000000
+    Size.Height = 33.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 3
+    Text = 'Button1'
+    OnClick = Button1Click
+  end
+  object LocationSensor1: TLocationSensor
+    OnLocationChanged = LocationSensor1LocationChanged
+    Left = 144
+    Top = 160
+  end
+  object Timer1: TTimer
+    OnTimer = Timer1Timer
+    Left = 312
+    Top = 232
+  end
+end
