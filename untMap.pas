@@ -6,20 +6,25 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Maps,
   System.Sensors, System.Sensors.Components, System.Permissions,
-  FMX.Controls.Presentation, FMX.StdCtrls;
+  FMX.Controls.Presentation, FMX.StdCtrls, FMX.Objects, FMX.Layouts;
 
 type
-  TForm4 = class(TForm)
+  TFormMapa = class(TForm)
     MapView1: TMapView;
     LocationSensor1: TLocationSensor;
     Timer1: TTimer;
     Button1: TButton;
+    Button2: TButton;
+    ActionSheet: TLayout;
+    GrayBackground: TRectangle;
+    Rectangle1: TRectangle;
     procedure MapView1MarkerClick(Marker: TMapMarker);
     procedure LocationSensor1LocationChanged(Sender: TObject; const OldLocation,
       NewLocation: TLocationCoord2D);
     procedure FormCreate(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure GrayBackgroundClick(Sender: TObject);
   private
     { Private declarations }
 
@@ -36,7 +41,7 @@ type
   end;
 
 var
-  Form4: TForm4;
+  FormMapa: TFormMapa;
 
 implementation
 
@@ -46,18 +51,27 @@ uses FMX.DialogService
 , Androidapi.JNI.JavaTypes
 , Androidapi.JNI.Os
 {$ENDIF}
+{$IFDEF MSWINDOWS}
+, System.Win.Sensors
+{$ENDIF}
 
 ;
 
 {$R *.fmx}
 {$IFDEF ANDROID}
 
-procedure TForm4.Button1Click(Sender: TObject);
+procedure TFormMapa.Button1Click(Sender: TObject);
 begin
   ShowMessage(MapView1.Zoom.ToString);
 end;
 
-procedure TForm4.DisplayRationale(Sender: TObject;
+procedure TFormMapa.Button2Click(Sender: TObject);
+begin
+  ActionSheet.Visible := True;
+  Exit;
+end;
+
+procedure TFormMapa.DisplayRationale(Sender: TObject;
   const APermissions: TArray<string>; const APostRationaleProc: TProc);
 var
   I: Integer;
@@ -76,7 +90,7 @@ begin
     end)
 end;
 
-procedure TForm4.LocationPermissionRequestResult
+procedure TFormMapa.LocationPermissionRequestResult
   (Sender: TObject; const APermissions: TArray<string>;
 const AGrantResults: TArray<TPermissionStatus>);
 var
@@ -97,7 +111,12 @@ end;
 
 {$ENDIF}
 
-procedure TForm4.FormCreate(Sender: TObject);
+procedure TFormMapa.Button2Click(Sender: TObject);
+begin
+  ActionSheet.Visible := True;
+end;
+
+procedure TFormMapa.FormCreate(Sender: TObject);
 begin
   {$IFDEF ANDROID}
   Access_Coarse_Location := JStringToString(TJManifest_permission.JavaClass.ACCESS_COARSE_LOCATION);
@@ -105,7 +124,12 @@ begin
   {$ENDIF}
 end;
 
-procedure TForm4.LocationSensor1LocationChanged(Sender: TObject;
+procedure TFormMapa.GrayBackgroundClick(Sender: TObject);
+begin
+  ActionSheet.Visible := False;
+end;
+
+procedure TFormMapa.LocationSensor1LocationChanged(Sender: TObject;
   const OldLocation, NewLocation: TLocationCoord2D);
 var
   Location: TMapCoordinate;
@@ -115,12 +139,12 @@ begin
   MapView1.Location := Location;
 end;
 
-procedure TForm4.MapView1MarkerClick(Marker: TMapMarker);
+procedure TFormMapa.MapView1MarkerClick(Marker: TMapMarker);
 begin
   ShowMessage(marker.Descriptor.Title);
 end;
 
-procedure TForm4.Timer1Timer(Sender: TObject);
+procedure TFormMapa.Timer1Timer(Sender: TObject);
 begin
   {$IFDEF ANDROID}
   PermissionsService.RequestPermissions([Access_Coarse_Location,
@@ -130,7 +154,7 @@ begin
   {$ENDIF}
 
   {$IFDEF IOS}
-  LocationSensor.Active := true;
+  LocationSensor1.Active := true;
   {$ENDIF}
 
   Timer1.Enabled := False;
